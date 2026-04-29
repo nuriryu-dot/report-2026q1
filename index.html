@@ -94,11 +94,11 @@ body{background:#f5f5f3;font-family:-apple-system,BlinkMacSystemFont,'Apple SD G
 
 <script>
 /* ── 단위 안내
-   KPI 카드(메인보드): 억 (소수2자리)
+   KPI 카드: 억 (소수2자리)
    테이블 상세행: 백만원 (소수1자리, M 표기)
 ─────────────────────────────────────── */
 const D = {
-  '4':{tg:21.0, stockout:3.57, sales:5.56, order:6.43, vol:12.63, qty:99347,
+  '4':{tg:21.0, stockout:3.03, sales:5.91, order:6.54, vol:12.83, qty:105347,
     cats:[
       {key:'preorder', label:'프리오더 예정', note:'매출 인식 ✗ — 출고 시점에 부킹',
        items:[
@@ -107,7 +107,7 @@ const D = {
        ]},
       {key:'popup', label:'팝업',
        items:[
-        {n:'누가사', d:'4/16~5/6', sku:48, qty:35,200, order:138.6, vol:284.4, st:.51, so:70.7, sl:146.2, note:'카.선 10SKU 4/3선런칭', '재입고 적용'},
+        {n:'누가사', d:'4/16~5/6', sku:48, qty:35200, order:138.7, vol:284.5, st:.52, so:72.1, sl:147.9, note:'카.선 10SKU 4/3선런칭, 재발주 물량 추가'},
        ]},
       {key:'new', label:'신제품',
        items:[
@@ -115,7 +115,7 @@ const D = {
         {n:'Multi 퍼글러·패트와매트·미니마우스·체로프몽모', d:'4/2', sku:18, qty:2566, order:17.2, vol:32.1, st:.25, so:4.3, sl:8.0},
         {n:'BT21 허니비', d:'4/8', sku:23, qty:16520, order:114.9, vol:281.7, st:.50, so:57.5, sl:140.9},
         {n:'(LFSQ제작) LF 제작 핸드 타월', d:'4/13', sku:4, qty:3000, order:11.3, vol:19.1, st:.05, so:0.6, sl:1.0, note:'2,000ea GWP 제외'},
-        {n:'ZNF 로이체', d:'4/14', sku:5, qty:5410, order:98.5, vol:179.7, st:.88, so:86.7, sl:158.1},
+        {n:'ZNF 로이체', d:'4/14', sku:5, qty:5410, order:98.5, vol:179.7, st:.88, so:86.7, sl:158.2},
         {n:'Multi 산리오 캐릭터즈 키캡', d:'4/30', sku:5, qty:1000, order:12.5, vol:22.6, st:.05, so:0.6, sl:1.1, note:'말일 런칭 감안'},
        ]},
       {key:'reorder', label:'재발주',
@@ -131,7 +131,7 @@ const D = {
        ]},
     ]},
 
-  '5':{tg:33.6, stockout:7.49, sales:17.17, order:14.10, vol:34.48, qty:219185,
+  '5':{tg:33.6, stockout:7.45, sales:17.09, order:13.99, vol:34.28, qty:213185,
     cats:[
       {key:'preorder', label:'프리오더 예정', note:'매출 인식 ✗ — 출고 시점에 부킹',
        items:[
@@ -149,7 +149,7 @@ const D = {
         {n:'JG OFFICE', d:'5/7', sku:15, qty:30100, order:111.8, vol:249.2, st:.40, so:44.7, sl:99.7},
         {n:'BUY_BT21_스노우피크', d:'5/1', sku:25, qty:734, order:17.8, vol:35.7, st:.40, so:7.1, sl:14.3},
         {n:'BUY_JG 스튜디오천재', d:'5/7', sku:44, qty:11608, order:36.7, vol:81.4, st:.40, so:14.7, sl:32.6},
-        {n:'BUY_ZNF 로이체 무드등', d:'5/14', sku:1, qty:1200, order:25.7, vol:46.7, st:.50, so:12.8, sl:23.3},
+        {n:'BUY_ZNF 로이체 무드등', d:'5/14', sku:1, qty:1200, order:25.7, vol:46.7, st:.50, so:12.8, sl:23.3, note:'5월구매'},
         {n:'BUY_ZNF_오센트', d:'5/19', sku:3, qty:1280, order:12.5, vol:22.8, st:.50, so:6.3, sl:11.4},
         {n:'BT21 BASIC 우산', d:'5/13', sku:1, qty:700, order:5.1, vol:15.9, st:.15, so:0.8, sl:2.4, note:'오프5/13, 온라인6/17'},
         {n:'BT21 BEYOND THE JOURNEY', d:'5/21', sku:34, qty:21580, order:167.1, vol:416.4, st:.35, so:58.5, sl:145.7},
@@ -209,7 +209,7 @@ const D = {
 };
 
 /* ── helpers ─────────────────────────── */
-function fmtM(v){  // 백만 단위 표기
+function fmtM(v){
   if(v===null||v===undefined) return '<span class="dash">—</span>';
   return v.toFixed(1)+'M';
 }
