@@ -277,7 +277,7 @@ function buildMonth(m){
   const pct=d.tg?Math.round(d.sales/d.tg*100):null;
   const pctColor=pct===null?'#888':pct>=100?'#3B6D11':pct>=60?'#854F0B':'#A32D2D';
   const threshold=getHighlightThreshold(d.cats);
-  const salesLabel = '출시 예상 매출액'; 
+  const salesLabel = '출시 예상 매출액';
 
   let h=`
   <div class="month-header">
