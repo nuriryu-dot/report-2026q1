@@ -3,56 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>26년 신제품 현황 보고 — 2026 Q1</title>
+<title>26년 신제품 현황 보고</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#f5f5f3;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;color:#1a1a1a;min-height:100vh;padding:0 0 4rem}
-.w{max-width:1020px;margin:0 auto;padding:2rem 1.5rem}
+body{background:#f5f5f3;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif;color:#1a1a1a;padding:0 0 4rem}
+.w{max-width:1060px;margin:0 auto;padding:2rem 1.5rem}
 .top-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:10px}
 .report-title{font-size:11px;font-weight:500;color:#888;letter-spacing:.08em;text-transform:uppercase}
 .tab-bar{display:flex;border:1px solid #d8d8d4;border-radius:8px;overflow:hidden}
-.tab{padding:7px 22px;font-size:12px;font-weight:500;border:none;background:transparent;cursor:pointer;color:#666;border-right:1px solid #d8d8d4}
+.tab{padding:7px 20px;font-size:12px;font-weight:500;border:none;background:transparent;cursor:pointer;color:#666;border-right:1px solid #d8d8d4}
 .tab:last-child{border-right:none}
 .tab.active{background:#1a1a1a;color:#fff}
 .tab:hover:not(.active){background:#eeeeed}
 .panel{display:none}.panel.active{display:block}
-
 .month-header{display:flex;align-items:baseline;gap:10px;margin-bottom:1.25rem;flex-wrap:wrap}
 .month-title{font-size:20px;font-weight:500;color:#1a1a1a}
 .tg-badge{font-size:11px;font-weight:500;padding:3px 10px;border-radius:99px;background:#ebebea;color:#666}
 .achieve-pct{font-size:13px;font-weight:500}
-
 .kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:1rem}
 .kpi{background:#ebebea;border-radius:8px;padding:12px 14px}
 .kpi.accent{background:#fff;border:1px solid #d0d0cc}
 .kpi-label{font-size:10px;color:#888;font-weight:500;letter-spacing:.04em;margin-bottom:5px}
 .kpi-val{font-size:20px;font-weight:500;color:#1a1a1a}
 .kpi-sub{font-size:10px;color:#aaa;margin-top:2px}
-
 .prog-wrap{margin-bottom:1.25rem}
 .prog-labels{display:flex;justify-content:space-between;font-size:10px;color:#aaa;margin-bottom:4px}
 .progress-bar{height:8px;background:#ddddd8;border-radius:4px;overflow:hidden}
 .progress-fill{height:100%;border-radius:4px}
-
-.section-title{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:#aaa;margin-bottom:8px;margin-top:1.25rem}
-
 .category-block{border:1px solid #ddddd8;border-radius:12px;background:#fff;margin-bottom:10px;overflow:hidden}
 .cat-header{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#f5f5f3;border-bottom:1px solid #ddddd8;cursor:pointer;user-select:none}
-.cat-toggle{font-size:11px;color:#aaa;transition:transform .2s;margin-left:4px}
+.cat-toggle{font-size:11px;color:#aaa;transition:transform .2s}
 .cat-toggle.open{transform:rotate(180deg)}
 .cat-body{display:none}.cat-body.open{display:block}
 .cat-meta{font-size:10px;color:#aaa}
 .cat-amt{font-size:12px;font-weight:500;color:#1a1a1a}
-
 .tbl{width:100%;border-collapse:collapse;font-size:11px;table-layout:fixed}
-.tbl th{padding:7px 10px;text-align:left;font-weight:500;font-size:10px;color:#aaa;letter-spacing:.03em;border-bottom:1px solid #ddddd8;background:#f5f5f3}
+.tbl th{padding:7px 10px;text-align:left;font-weight:500;font-size:10px;color:#aaa;border-bottom:1px solid #ddddd8;background:#f5f5f3}
 .tbl td{padding:7px 10px;color:#1a1a1a;border-bottom:1px solid #eeeee8;vertical-align:middle}
 .tbl tr:last-child td{border-bottom:none}
 .tbl tr:hover td{background:#f9f9f7}
+.tbl tr.highlight td{background:#FFFBEB}
+.tbl tr.highlight td:first-child{border-left:3px solid #F59E0B}
 .num{text-align:right!important}
 .summary-row td{font-weight:500;background:#f5f5f3!important}
-
 .badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:99px;font-weight:500;white-space:nowrap}
 .b-preorder{background:#E6F1FB;color:#0C447C}
 .b-preorder-out{background:#EAF3DE;color:#3B6D11}
@@ -60,155 +54,208 @@ body{background:#f5f5f3;font-family:-apple-system,BlinkMacSystemFont,'Apple SD G
 .b-new{background:#EEEDFE;color:#3C3489}
 .b-reorder{background:#F1EFE8;color:#5F5E5A}
 .b-b2b{background:#FCEBEB;color:#A32D2D}
-
 .sellthru-bar{display:flex;align-items:center;gap:5px}
 .st-bg{flex:1;height:3px;background:#ddddd8;border-radius:2px;min-width:24px}
 .st-fill{height:3px;border-radius:2px;background:#378ADD}
 .dash{color:#ccc}
 .note-txt{font-size:10px;color:#aaa;font-style:italic}
-
+.hl-vol{font-weight:600;color:#B45309}
+.section-title{font-size:10px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:#aaa;margin-bottom:8px;margin-top:1.25rem}
 .chart-area{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.25rem}
 .chart-box{border:1px solid #ddddd8;border-radius:12px;padding:14px;background:#fff}
 .legend-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px}
 .leg{display:flex;align-items:center;gap:4px;font-size:10px;color:#aaa}
 .leg-sq{width:9px;height:9px;border-radius:2px;flex-shrink:0}
 .table-wrap{border:1px solid #ddddd8;border-radius:12px;background:#fff;overflow:hidden;margin-bottom:1.25rem}
+.hl-legend{display:flex;align-items:center;gap:6px;font-size:10px;color:#92400E;background:#FFFBEB;border:1px solid #FDE68A;border-radius:6px;padding:4px 10px;margin-bottom:10px;width:fit-content}
+.hl-dot{width:8px;height:8px;background:#F59E0B;border-radius:2px;flex-shrink:0}
 </style>
 </head>
 <body>
 <div class="w">
   <div class="top-nav">
-    <span class="report-title">26년 신제품 현황 보고 — 2026 Q1 (4월~6월)</span>
+    <span class="report-title">26년 신제품 현황 보고 — 4월~7월 · 0528 update</span>
     <div class="tab-bar">
       <button class="tab active" onclick="switchTab('4')">4월</button>
       <button class="tab" onclick="switchTab('5')">5월</button>
       <button class="tab" onclick="switchTab('6')">6월</button>
+      <button class="tab" onclick="switchTab('7')">7월</button>
       <button class="tab" onclick="switchTab('all')">전체</button>
     </div>
   </div>
   <div id="p4" class="panel active"></div>
   <div id="p5" class="panel"></div>
   <div id="p6" class="panel"></div>
+  <div id="p7" class="panel"></div>
   <div id="pall" class="panel"></div>
 </div>
-
 <script>
-/* ── 단위 안내
-   KPI 카드: 억 (소수2자리)
-   테이블 상세행: 백만원 (소수1자리, M 표기)
-─────────────────────────────────────── */
 const D = {
-  '4':{tg:21.0, stockout:3.03, sales:5.91, order:6.54, vol:12.83, qty:105347,
+  '4':{tg:21.0, stockout:3.02, sales:5.89, order:6.39, vol:12.52, qty:104047,
     cats:[
       {key:'preorder', label:'프리오더 예정', note:'매출 인식 ✗ — 출고 시점에 부킹',
        items:[
         {n:'BT21 K 선비(항아리 인형키링)', d:'4/1~4/3', sku:7, qty:1441, order:10.4, vol:30.1, st:null, so:0, sl:0, note:'6월 출고'},
         {n:'TRUZ LITTLE FARM', d:'4/21~4/23', sku:10, qty:4694, order:33.9, vol:81.1, st:null, so:0, sl:0, note:'7월 출고'},
-       ]},
+      ]},
       {key:'popup', label:'팝업',
        items:[
-        {n:'누가사', d:'4/16~5/6', sku:48, qty:35200, order:138.7, vol:284.5, st:.52, so:72.1, sl:147.9, note:'카.선 10SKU 4/3선런칭, 재발주 물량 추가'},
-       ]},
+        {n:'누가사', d:'4/16~5/6', sku:48, qty:35200, order:138.7, vol:284.5, st:0.52, so:72.1, sl:147.9, note:'카.선 10SKU 4/3선런칭, 재발주 물량 추가'},
+      ]},
       {key:'new', label:'신제품',
        items:[
-        {n:'BUY_(LF·minini·BT21·가나디) 티머니', d:'4/1', sku:8, qty:900, order:4.8, vol:5.4, st:.60, so:2.9, sl:3.2},
-        {n:'Multi 퍼글러·패트와매트·미니마우스·체로프몽모', d:'4/2', sku:18, qty:2566, order:17.2, vol:32.1, st:.25, so:4.3, sl:8.0},
-        {n:'BT21 허니비', d:'4/8', sku:23, qty:16520, order:114.9, vol:281.7, st:.50, so:57.5, sl:140.9},
-        {n:'(LFSQ제작) LF 제작 핸드 타월', d:'4/13', sku:4, qty:3000, order:11.3, vol:19.1, st:.05, so:0.6, sl:1.0, note:'2,000ea GWP 제외'},
-        {n:'ZNF 로이체', d:'4/14', sku:5, qty:5410, order:98.5, vol:179.7, st:.88, so:86.7, sl:158.2},
-        {n:'Multi 산리오 캐릭터즈 키캡', d:'4/30', sku:5, qty:1000, order:12.5, vol:22.6, st:.05, so:0.6, sl:1.1, note:'말일 런칭 감안'},
-       ]},
+        {n:'BUY_(LF·minini·BT21·가나디) 티머니', d:'4/1', sku:8, qty:900, order:4.8, vol:5.4, st:0.60, so:2.9, sl:3.2},
+        {n:'Multi 퍼글러·패트와매트·미니마우스·체로프몽모', d:'4/2', sku:18, qty:2566, order:17.2, vol:32.1, st:0.25, so:4.3, sl:8.0},
+        {n:'BT21 허니비', d:'4/8', sku:23, qty:16520, order:114.9, vol:281.7, st:0.50, so:57.5, sl:140.9},
+        {n:'(LFSQ제작) LF 제작 핸드 타월', d:'4/13', sku:4, qty:3000, order:11.3, vol:19.1, st:0.05, so:0.6, sl:1.0, note:'2,000ea GWP 제외'},
+        {n:'ZNF 로이체', d:'4/14', sku:5, qty:5410, order:98.5, vol:179.7, st:0.88, so:86.7, sl:158.2},
+      ]},
       {key:'reorder', label:'재발주',
        items:[
-        {n:'조구만 재발주', d:'4/1', sku:5, qty:6000, order:26.1, vol:59.1, st:.20, so:5.2, sl:11.8},
-        {n:'B&F 재발주', d:'4/24', sku:7, qty:4700, order:22.3, vol:52.6, st:.10, so:2.2, sl:5.3},
-        {n:'티머니 재발주', d:'4/9', sku:6, qty:2350, order:9.6, vol:12.6, st:.60, so:5.7, sl:7.6, note:'가나디, BT21'},
-        {n:'Multi 재발주', d:'4/6', sku:52, qty:24981, order:177.8, vol:302.9, st:.25, so:44.5, sl:75.7, note:'퍼글러,가나디,랜덤스퀘어,케데헌,체로프몽모'},
-       ]},
+        {n:'조구만 재발주', d:'4/1', sku:5, qty:6000, order:26.1, vol:59.1, st:0.20, so:5.2, sl:11.8},
+        {n:'B&F 재발주', d:'4/24', sku:7, qty:4400, order:19.2, vol:44.4, st:0.10, so:1.9, sl:4.4},
+        {n:'티머니 재발주', d:'4/9', sku:6, qty:2350, order:9.6, vol:12.6, st:0.60, so:5.7, sl:7.6, note:'가나디, BT21'},
+        {n:'Multi 재발주', d:'4/6', sku:52, qty:24981, order:177.8, vol:302.9, st:0.25, so:44.5, sl:75.7, note:'퍼글러,가나디,랜덤스퀘어,케데헌,체로프몽모'},
+      ]},
       {key:'b2b', label:'B2B',
        items:[
         {n:'BT21 허니비', d:'', sku:28, qty:2720, order:20.6, vol:30.3, st:1.00, so:20.6, sl:30.3},
-       ]},
+      ]},
     ]},
 
-  '5':{tg:33.6, stockout:7.45, sales:17.09, order:13.99, vol:34.28, qty:213185,
+  '5':{tg:33.6, stockout:7.71, sales:17.02, order:15.99, vol:36.89, qty:242195,
     cats:[
       {key:'preorder', label:'프리오더 예정', note:'매출 인식 ✗ — 출고 시점에 부킹',
        items:[
-        {n:'프리오더_WISHNINI 1ST', d:'5/26~5/28', sku:12, qty:null, order:null, vol:null, st:null, so:0, sl:0, note:'8월 출고'},
-        {n:'LF X LAFC 프리오더', d:'5/21~5/26', sku:2, qty:null, order:null, vol:null, st:null, so:null, sl:null, note:'7월 출고'},
-       ]},
+        {n:'프리오더_WISHNINI 1ST', d:'5/26~5/28', sku:12, qty:14295, order:146.9, vol:419.8, st:1.0, so:146.9, sl:419.8, note:'5/27 마감매출, 8월말 입고'},
+      ]},
       {key:'popup', label:'팝업',
        items:[
-        {n:"NCT WISH WISHNINI'S HOUSE", d:'5/29~6/7', sku:59, qty:70310, order:482.7, vol:1486.7, st:.40, so:193.1, sl:594.7, note:'3일판매 셀스루 적용'},
-        {n:'원신 (GS_LIYUE)', d:'5/15~5/24', sku:94, qty:19915, order:147.7, vol:321.0, st:.70, so:103.4, sl:224.7},
-        {n:'실바니안', d:'5/22~6/7', sku:203, qty:null, order:null, vol:null, st:null, so:null, sl:null},
-       ]},
+        {n:'원신 (GS_LIYUE)', d:'5/15~5/24', sku:94, qty:36915, order:158.6, vol:321.0, st:0.55, so:87.2, sl:176.5},
+        {n:"NCT WISH WISHNINI'S HOUSE", d:'5/29~6/7', sku:59, qty:66200, order:454.3, vol:1399.0, st:0.40, so:181.7, sl:559.6, note:'3일판매 셀스루 적용'},
+        {n:'실바니안', d:'5/22~6/7', sku:141, qty:13200, order:199.9, vol:330.5, st:0.20, so:40.0, sl:66.1},
+      ]},
       {key:'new', label:'신제품',
        items:[
-        {n:'JG OFFICE', d:'5/7', sku:15, qty:30100, order:111.8, vol:249.2, st:.40, so:44.7, sl:99.7},
-        {n:'BUY_BT21_스노우피크', d:'5/1', sku:25, qty:734, order:17.8, vol:35.7, st:.40, so:7.1, sl:14.3},
-        {n:'BUY_JG 스튜디오천재', d:'5/7', sku:44, qty:11608, order:36.7, vol:81.4, st:.40, so:14.7, sl:32.6},
-        {n:'BUY_ZNF 로이체 무드등', d:'5/14', sku:1, qty:1200, order:25.7, vol:46.7, st:.50, so:12.8, sl:23.3, note:'5월구매'},
-        {n:'BUY_ZNF_오센트', d:'5/19', sku:3, qty:1280, order:12.5, vol:22.8, st:.50, so:6.3, sl:11.4},
-        {n:'BT21 BASIC 우산', d:'5/13', sku:1, qty:700, order:5.1, vol:15.9, st:.15, so:0.8, sl:2.4, note:'오프5/13, 온라인6/17'},
-        {n:'BT21 BEYOND THE JOURNEY', d:'5/21', sku:34, qty:21580, order:167.1, vol:416.4, st:.35, so:58.5, sl:145.7},
-        {n:'LF DRINKWARE', d:'5/28', sku:1, qty:950, order:6.7, vol:16.4, st:.05, so:0.3, sl:0.8},
-        {n:'JG DRINKWARE', d:'5/28', sku:2, qty:1700, order:12.3, vol:31.9, st:.10, so:1.2, sl:3.2},
-       ]},
+        {n:'BUY_BT21_스노우피크', d:'5/1', sku:25, qty:734, order:17.8, vol:35.7, st:0.40, so:7.1, sl:14.3},
+        {n:'JG OFFICE', d:'5/7', sku:14, qty:29800, order:108.2, vol:244.0, st:0.20, so:21.6, sl:48.8},
+        {n:'BUY_JG 스튜디오천재', d:'5/7', sku:44, qty:11608, order:36.7, vol:81.4, st:0.40, so:14.7, sl:32.6},
+        {n:'Multi 산리오 캐릭터즈 키캡', d:'5/8', sku:5, qty:1000, order:12.5, vol:22.6, st:0.10, so:1.2, sl:2.3},
+        {n:'BUY_ZNF 로이체 무드등', d:'5/15', sku:1, qty:1200, order:25.7, vol:46.7, st:1.00, so:25.7, sl:46.7, note:'7월 재입고 예정'},
+        {n:'BUY_ZNF_오센트', d:'5/19', sku:3, qty:1280, order:10.6, vol:22.8, st:0.20, so:2.1, sl:4.6},
+        {n:'BT21 BEYOND THE JOURNEY', d:'5/21', sku:34, qty:20770, order:163.0, vol:406.2, st:0.35, so:57.0, sl:142.2},
+      ]},
       {key:'reorder', label:'재발주',
        items:[
-        {n:'JUG 재발주', d:'5/7', sku:25, qty:14180, order:69.9, vol:159.5, st:.30, so:21.0, sl:47.9},
-        {n:'ZNF 케이스티파이', d:'5/8', sku:25, qty:1068, order:36.9, vol:60.5, st:.40, so:14.8, sl:24.2},
-       ]},
+        {n:'JG OEM 재발주', d:'5/7', sku:6, qty:9500, order:56.4, vol:129.5, st:0.20, so:11.3, sl:25.9, note:'쓰루웨이, 파라독스 등'},
+        {n:'JG 라이센시_스튜디오천재 재발주', d:'5/7', sku:19, qty:4680, order:13.5, vol:30.0, st:0.15, so:2.0, sl:4.5},
+        {n:'ZNF 케이스티파이', d:'5/8', sku:25, qty:1068, order:36.9, vol:60.5, st:0.40, so:14.8, sl:24.2},
+        {n:'B&F 코코도르', d:'5/20', sku:4, qty:1020, order:1.7, vol:9.2, st:0.40, so:0.7, sl:3.7},
+      ]},
       {key:'b2b', label:'B2B',
        items:[
-        {n:'BT21 BEYOND THE JOURNEY', d:'', sku:34, qty:3330, order:25.1, vol:37.4, st:1.00, so:25.1, sl:37.4},
-        {n:'LF DRINKWARE', d:'', sku:1, qty:50, order:0.4, vol:0.5, st:1.00, so:0.4, sl:0.5},
-        {n:'JG DRINKWARE', d:'', sku:2, qty:80, order:0.6, vol:0.9, st:1.00, so:0.6, sl:0.9},
-        {n:"NCT WISH WISHNINI'S HOUSE", d:'', sku:59, qty:34400, order:240.0, vol:445.3, st:1.00, so:240.0, sl:445.3},
-       ]},
+        {n:'BT21 BEYOND THE JOURNEY', d:'', sku:34, qty:4550, order:34.1, vol:50.9, st:1.00, so:34.1, sl:50.9},
+        {n:"NCT WISH WISHNINI'S HOUSE", d:'', sku:59, qty:38670, order:269.3, vol:499.4, st:1.00, so:269.3, sl:499.4},
+      ]},
     ]},
 
-  '6':{tg:40.5, stockout:2.99, sales:8.02, order:5.36, vol:16.06, qty:91661,
+  '6':{tg:40.5, stockout:18.14, sales:37.07, order:31.17, vol:67.95, qty:446110,
     cats:[
-      {key:'preorder', label:'프리오더 예정', note:'매출 인식 ✗ — 출고 시점에 부킹',
-       items:[
-        {n:'ATZ 인형키링 (마이티즈)', d:'6/2~6/4', sku:16, qty:null, order:null, vol:null, st:null, so:0, sl:0, note:'8월 입고예정'},
-       ]},
       {key:'preorder-out', label:'프리오더 출고', note:'실제 매출 부킹 ✓',
        items:[
-        {n:'BT21 K 선비(항아리 인형키링)', d:'4/1~4/3', sku:7, qty:1441, order:10.4, vol:30.1, st:1.00, so:10.4, sl:30.1, note:'4월판매→6월 매출인식'},
-       ]},
+        {n:'BT21 K 선비(항아리 인형키링)', d:'4/1~4/3', sku:7, qty:1441, order:10.4, vol:30.1, st:1.00, so:10.4, sl:30.1, note:'4월판매 → 6월 매출인식'},
+        {n:'Multi 누가사', d:'6/4', sku:1, qty:1000, order:19.0, vol:32.5, st:1.00, so:19.0, sl:32.5, note:'카카오 선물하기'},
+      ]},
+      {key:'preorder', label:'프리오더 예정', note:'매출 인식 ✗ — 출고 시점에 부킹',
+       items:[
+        {n:'ATZ 인형키링 (마이티즈)', d:'6/17~19', sku:16, qty:null, order:null, vol:null, st:1.0, so:0, sl:0, note:'8월말 입고, 9월초 출고 예상'},
+        {n:'Coller X Asepa', d:'6/26~7/2', sku:5, qty:null, order:null, vol:null, st:null, so:null, sl:null, note:'29cm (6/26~7/2), 통합몰 (6/30~7/2)'},
+      ]},
       {key:'popup', label:'팝업',
        items:[
-        {n:'(위탁) BABY MONSTER', d:'6/19~6/28', sku:null, qty:null, order:null, vol:null, st:null, so:0, sl:0, note:'위탁'},
-       ]},
+        {n:'(위탁) BABY MONSTER', d:'6/20~6/28', sku:null, qty:null, order:null, vol:null, st:null, so:0, sl:0, note:'위탁'},
+      ]},
       {key:'new', label:'신제품',
        items:[
-        {n:'BT21 BASIC', d:'6월', sku:8, qty:2550, order:9.4, vol:23.6, st:.30, so:2.8, sl:7.1, note:'마켓백,양말,우산'},
-        {n:'BT21 K-HANGARI', d:'6월', sku:17, qty:16841, order:109.6, vol:277.5, st:.40, so:43.8, sl:111.0},
-        {n:'JG SOUVENIR', d:'6월', sku:9, qty:13700, order:68.0, vol:163.0, st:.30, so:20.4, sl:48.9},
-        {n:'ZNF_K-EDITION', d:'6월', sku:8, qty:17170, order:234.8, vol:706.0, st:.50, so:117.4, sl:353.0},
-        {n:'Multi 몬치치', d:'6월', sku:17, qty:7200, order:0, vol:139.8, st:.15, so:0, sl:21.0},
-        {n:'BF 리유저블백 L (리뉴얼)', d:'6월', sku:1, qty:20000, order:0, vol:36.4, st:.03, so:0, sl:1.1},
-       ]},
+        {n:'JG SOUVENIR', d:'6/9', sku:9, qty:13700, order:68.0, vol:163.0, st:0.30, so:20.4, sl:48.9},
+        {n:'JG 나라홈데코', d:'6/9', sku:3, qty:1900, order:22.2, vol:40.4, st:0.15, so:3.3, sl:6.1, note:'냉감제품, 우디필로우'},
+        {n:'Multi 퍼글러', d:'6/10', sku:14, qty:2108, order:11.2, vol:18.7, st:0.15, so:1.7, sl:2.8},
+        {n:'Multi 랜덤스퀘어', d:'6/10', sku:7, qty:4644, order:15.1, vol:27.9, st:0.15, so:2.3, sl:4.2},
+        {n:'Multi 몬치치', d:'6/11', sku:18, qty:6742, order:37.2, vol:75.2, st:0.15, so:5.6, sl:11.3},
+        {n:'LF DRINKWARE', d:'6/11', sku:1, qty:950, order:6.7, vol:16.4, st:0.05, so:0.3, sl:0.8},
+        {n:'JG DRINKWARE', d:'6/11', sku:2, qty:1700, order:12.3, vol:31.9, st:0.10, so:1.2, sl:3.2},
+        {n:'Multi 스냅스퀘어', d:'6/15', sku:5, qty:1350, order:37.7, vol:56.0, st:0.15, so:5.7, sl:8.4},
+        {n:'BT21 K-HANGARI', d:'6/16', sku:17, qty:16191, order:104.9, vol:252.5, st:0.30, so:31.5, sl:75.8},
+        {n:'BT21 BASIC', d:'6/17', sku:9, qty:4110, order:19.9, vol:55.0, st:0.20, so:4.0, sl:11.0, note:'우산만, 오프5/13런칭. 5/25기준 셀스루3%'},
+        {n:'BT21 BUSAN EDITION', d:'6/18', sku:39, qty:7580, order:50.3, vol:126.3, st:0.40, so:20.1, sl:50.5},
+        {n:'ZNF_K-EDITION', d:'6/19', sku:8, qty:17170, order:234.8, vol:706.0, st:0.50, so:117.4, sl:353.0},
+        {n:'MNH_베이비라인', d:'6/22', sku:8, qty:1500, order:17.5, vol:29.7, st:0.15, so:2.6, sl:4.5},
+        {n:'BF 리유저블백 L (리뉴얼)', d:'6/25', sku:1, qty:20000, order:25.3, vol:36.4, st:0.01, so:0.3, sl:0.4},
+      ]},
       {key:'reorder', label:'재발주',
        items:[
-        {n:'가나디 재발주', d:'5/7', sku:12, qty:4680, order:39.7, vol:65.6, st:.30, so:11.9, sl:19.7},
-       ]},
+        {n:'가나디 재발주', d:'6/7', sku:12, qty:4680, order:39.7, vol:65.6, st:0.30, so:11.9, sl:19.7},
+        {n:'JG 나라홈데코 재발주', d:'6/9', sku:6, qty:4400, order:29.4, vol:55.8, st:0.15, so:4.4, sl:8.4},
+        {n:'티머니 재발주', d:'6/10', sku:7, qty:1806, order:7.2, vol:9.6, st:0.40, so:2.9, sl:3.8, note:'LF,BT21,가나디'},
+        {n:'Multi 퍼글러', d:'6/10', sku:14, qty:2292, order:18.5, vol:30.9, st:0.30, so:5.6, sl:9.3},
+        {n:'Multi 랜덤스퀘어', d:'6/10', sku:2, qty:816, order:1.7, vol:3.8, st:0.20, so:0.3, sl:0.8},
+        {n:'ZNF 로이체 선풍기', d:'6/10', sku:1, qty:880, order:17.4, vol:31.8, st:0.40, so:7.0, sl:12.7},
+      ]},
       {key:'b2b', label:'B2B',
        items:[
-        {n:'BT21 BASIC', d:'', sku:8, qty:930, order:2.8, vol:4.2, st:1.00, so:2.8, sl:4.2},
-        {n:'BT21 K-HANGARI', d:'', sku:17, qty:1749, order:11.4, vol:17.5, st:1.00, so:11.4, sl:17.5},
+        {n:'BT21 BASIC', d:'', sku:9, qty:1220, order:4.6, vol:7.3, st:1.00, so:4.6, sl:7.3},
+        {n:'BT21 K-HANGARI', d:'', sku:17, qty:1749, order:11.4, vol:17.1, st:1.00, so:11.4, sl:17.1},
         {n:'JG SOUVENIR', d:'', sku:9, qty:700, order:4.4, vol:6.4, st:1.00, so:4.4, sl:6.4},
-        {n:'ZNF_K-EDITION', d:'', sku:8, qty:6880, order:85.1, vol:167.3, st:1.00, so:85.1, sl:167.3},
-        {n:'ATZ 프리오더 (B2B발주)', d:'', sku:16, qty:2500, order:0, vol:34.1, st:1.00, so:0, sl:34.1},
-       ]},
+        {n:'ZNF_K-EDITION', d:'', sku:8, qty:18310, order:252.0, vol:454.4, st:1.00, so:252.0, sl:454.4},
+        {n:'BT21 BUSAN EDITION', d:'', sku:39, qty:30320, order:201.3, vol:303.1, st:1.00, so:201.3, sl:303.1},
+        {n:'LF DRINKWARE', d:'', sku:1, qty:50, order:0.4, vol:0.5, st:1.00, so:0.4, sl:0.5},
+        {n:'JG DRINKWARE', d:'', sku:2, qty:80, order:0.6, vol:0.9, st:1.00, so:0.6, sl:0.9},
+        {n:'ATZ 프리오더 (B2B발주)', d:'', sku:16, qty:2500, order:26.3, vol:34.1, st:1.00, so:26.3, sl:34.1},
+      ]},
+    ]},
+
+  '7':{tg:25.4, stockout:6.75, sales:13.76, order:12.97, vol:29.28, qty:147355,
+    cats:[
+      {key:'preorder-out', label:'프리오더 출고', note:'실제 매출 부킹 ✓',
+       items:[
+        {n:'TRUZ LITTLE FARM', d:'4/21~23', sku:10, qty:4694, order:33.9, vol:81.1, st:1.00, so:33.9, sl:81.1, note:'6월말 입고'},
+      ]},
+      {key:'popup', label:'팝업',
+       items:[
+        {n:'I-DLE BABY 팝업', d:'7/24~8/2', sku:24, qty:43000, order:160.7, vol:466.4, st:0.75, so:120.6, sl:349.8},
+        {n:'(위탁) I-DLE 앨범 팝업', d:'7/10~7/19', sku:null, qty:null, order:null, vol:null, st:null, so:null, sl:null, note:'위탁'},
+      ]},
+      {key:'new', label:'신제품',
+       items:[
+        {n:'BT21 PEACH', d:'7/21', sku:21, qty:17000, order:137.4, vol:296.4, st:0.40, so:55.0, sl:118.5},
+        {n:'ZNF SIGNATURE', d:'7/28', sku:26, qty:46150, order:617.3, vol:1554.6, st:0.20, so:123.5, sl:310.9, note:'4일치 셀스루 예상'},
+        {n:'TRUZ LITTLE FARM 상시판매', d:'TBD', sku:10, qty:1001, order:7.2, vol:17.3, st:0.20, so:1.4, sl:3.5},
+        {n:'BT21 X CASETIFY', d:'TBD', sku:null, qty:null, order:null, vol:null, st:null, so:null, sl:null},
+        {n:'몬치치 2차', d:'TBD', sku:null, qty:null, order:null, vol:null, st:null, so:null, sl:null},
+        {n:'퍼글러 신규', d:'TBD', sku:null, qty:null, order:null, vol:null, st:null, so:null, sl:null},
+        {n:'케데헌 2차', d:'TBD', sku:null, qty:null, order:null, vol:null, st:null, so:0, sl:0},
+      ]},
+      {key:'reorder', label:'재발주',
+       items:[
+        {n:'ZNF 로이체 무드등', d:'7/5', sku:1, qty:1000, order:21.4, vol:38.9, st:0.70, so:15.0, sl:27.2},
+      ]},
+      {key:'b2b', label:'B2B',
+       items:[
+        {n:'BT21 PEACH', d:'', sku:21, qty:6300, order:48.9, vol:63.3, st:1.00, so:48.9, sl:63.3},
+        {n:'ZNF SIGNATURE', d:'', sku:26, qty:18020, order:231.9, vol:350.2, st:1.00, so:231.9, sl:350.2},
+        {n:'I-DLE BABY 팝업', d:'', sku:24, qty:11190, order:59.5, vol:98.4, st:1.00, so:59.5, sl:98.4},
+      ]},
     ]},
 };
 
-/* ── helpers ─────────────────────────── */
+function getHighlightThreshold(cats){
+  const vols=[];
+  cats.forEach(cat=>cat.items.forEach(r=>{if(r.vol) vols.push(r.vol);}));
+  if(!vols.length) return Infinity;
+  vols.sort((a,b)=>b-a);
+  const idx=Math.max(0,Math.floor(vols.length*0.15)-1);
+  return vols[idx];
+}
 function fmtM(v){
   if(v===null||v===undefined) return '<span class="dash">—</span>';
   return v.toFixed(1)+'M';
@@ -222,16 +269,15 @@ function stBar(v){
   const pct=Math.round(v*100);
   return `<div class="sellthru-bar"><div class="st-bg"><div class="st-fill" style="width:${pct}%"></div></div><span style="font-size:10px;min-width:28px">${pct}%</span></div>`;
 }
-function badgeCls(k){
-  return{preorder:'b-preorder','preorder-out':'b-preorder-out',popup:'b-popup',new:'b-new',reorder:'b-reorder',b2b:'b-b2b'}[k]||'b-new';
-}
+function badgeCls(k){return{preorder:'b-preorder','preorder-out':'b-preorder-out',popup:'b-popup',new:'b-new',reorder:'b-reorder',b2b:'b-b2b'}[k]||'b-new'}
 function badge(k,l){return `<span class="badge ${badgeCls(k)}">${l}</span>`}
 
-/* ── month panel ─────────────────────── */
 function buildMonth(m){
   const d=D[m];
   const pct=d.tg?Math.round(d.sales/d.tg*100):null;
   const pctColor=pct===null?'#888':pct>=100?'#3B6D11':pct>=60?'#854F0B':'#A32D2D';
+  const threshold=getHighlightThreshold(d.cats);
+  const salesLabel = m==='4' ? '당월 예상 매출액' : '출시 예상 매출액';
 
   let h=`
   <div class="month-header">
@@ -241,7 +287,7 @@ function buildMonth(m){
   </div>
   <div class="kpi-grid">
     <div class="kpi accent">
-      <div class="kpi-label">당월 예상 매출액</div>
+      <div class="kpi-label">${salesLabel}</div>
       <div class="kpi-val" style="color:${pctColor}">${d.sales.toFixed(2)}억</div>
       <div class="kpi-sub">TG ${d.tg}억 대비 ${pct}%</div>
     </div>
@@ -264,13 +310,12 @@ function buildMonth(m){
       <div class="kpi-val">${d.qty.toLocaleString()}</div>
       <div class="kpi-sub">EA</div>
     </div>
-  </div>`;
-
-  const fill=Math.min(pct||0,100);
-  h+=`<div class="prog-wrap">
+  </div>
+  <div class="prog-wrap">
     <div class="prog-labels"><span>0</span><span>${d.sales.toFixed(2)}억 / TG ${d.tg}억</span></div>
-    <div class="progress-bar"><div class="progress-fill" style="width:${fill}%;background:${pctColor}"></div></div>
-  </div>`;
+    <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(pct||0,100)}%;background:${pctColor}"></div></div>
+  </div>
+  <div class="hl-legend"><span class="hl-dot"></span>매출볼륨 상위 15% 항목 하이라이트</div>`;
 
   d.cats.forEach(cat=>{
     const catSo=cat.items.reduce((s,r)=>s+(r.so||0),0);
@@ -279,18 +324,18 @@ function buildMonth(m){
     h+=`<div class="category-block">
       <div class="cat-header" onclick="toggleCat(this)">
         ${badge(cat.key,cat.label)}
-        ${cat.note?`<span class="note-txt" style="margin-left:4px">${cat.note}</span>`:''}
+        ${cat.note?`<span class="note-txt" style="margin-left:6px">${cat.note}</span>`:''}
         <span style="flex:1"></span>
-        ${cat.key==='b2b'?`<span style="background:#A32D2D;color:#fff;font-size:9px;font-weight:500;padding:2px 8px;border-radius:99px;margin-right:8px">공급률 60% 적용</span>`:''}
+        ${cat.key==='b2b'?'<span style="background:#A32D2D;color:#fff;font-size:9px;font-weight:500;padding:2px 8px;border-radius:99px;margin-right:8px">공급률 60% 적용</span>':''}
         <span class="cat-meta">재고소진 ${catSo.toFixed(1)}M&nbsp;&nbsp;</span>
         <span class="cat-amt">예상매출 ${catSl.toFixed(1)}M</span>
-        <span class="cat-toggle ${open?'open':''}">▾</span>
+        <span class="cat-toggle ${open?'open':''}" style="margin-left:6px">▾</span>
       </div>
       <div class="cat-body ${open?'open':''}">
         <table class="tbl">
           <thead><tr>
             <th style="width:22%">프로젝트명</th>
-            <th style="width:6%">출시일</th>
+            <th style="width:7%">출시일</th>
             <th class="num" style="width:4%">SKU</th>
             <th class="num" style="width:7%">입고수량</th>
             <th class="num" style="width:8%">발주(M)</th>
@@ -298,16 +343,20 @@ function buildMonth(m){
             <th style="width:11%">예상 셀스루</th>
             <th class="num" style="width:9%">재고소진(M)</th>
             <th class="num" style="width:9%">예상매출(M)</th>
-            <th style="width:15%">비고</th>
+            <th style="width:14%">비고</th>
           </tr></thead><tbody>`;
     cat.items.forEach(r=>{
-      h+=`<tr>
+      const isHl=r.vol&&r.vol>=threshold;
+      const volDisplay=r.vol!==null&&r.vol!==undefined
+        ?`<span class="${isHl?'hl-vol':''}">${r.vol.toFixed(1)}M</span>`
+        :'<span class="dash">—</span>';
+      h+=`<tr${isHl?' class="highlight"':''}>
         <td>${r.n}</td>
         <td style="font-size:10px;color:#aaa">${r.d||''}</td>
         <td class="num">${r.sku!==null&&r.sku!==undefined?r.sku:'<span class="dash">—</span>'}</td>
         <td class="num">${fmtQty(r.qty)}</td>
-        <td class="num">${fmtM(r.order)}</td>
-        <td class="num">${fmtM(r.vol)}</td>
+        <td class="num">${r.order!==null&&r.order!==undefined?r.order.toFixed(1):'<span class="dash">—</span>'}</td>
+        <td class="num">${volDisplay}</td>
         <td>${stBar(r.st)}</td>
         <td class="num">${fmtM(r.so)}</td>
         <td class="num" style="font-weight:500">${fmtM(r.sl)}</td>
@@ -324,9 +373,8 @@ function buildMonth(m){
   return h;
 }
 
-/* ── all panel ───────────────────────── */
 function buildAll(){
-  const ms=['4','5','6'], labels=['4월','5월','6월'];
+  const ms=['4','5','6','7'], labels=['4월','5월','6월','7월'];
   const salesArr=ms.map(m=>D[m].sales);
   const soArr=ms.map(m=>D[m].stockout);
   const volArr=ms.map(m=>D[m].vol);
@@ -334,19 +382,21 @@ function buildAll(){
   const gc='rgba(0,0,0,0.06)', tc='rgba(0,0,0,0.4)';
   const catKeys=['preorder','preorder-out','popup','new','reorder','b2b'];
   const catNames={preorder:'프리오더 예정','preorder-out':'프리오더 출고',popup:'팝업',new:'신제품',reorder:'재발주',b2b:'B2B'};
-
   const totalSales=salesArr.reduce((a,b)=>a+b,0);
   const totalSo=soArr.reduce((a,b)=>a+b,0);
   const totalVol=volArr.reduce((a,b)=>a+b,0);
   const totalTg=tgArr.reduce((a,b)=>a+b,0);
 
   let h=`
-  <div class="month-header"><span class="month-title">2026 Q1 전체 요약</span><span class="tg-badge">4~6월 합산</span></div>
+  <div class="month-header">
+    <span class="month-title">4~7월 전체 요약</span>
+    <span class="tg-badge">4~7월 합산</span>
+  </div>
   <div class="kpi-grid">
-    <div class="kpi accent"><div class="kpi-label">예상 매출 합계</div><div class="kpi-val">${totalSales.toFixed(2)}억</div><div class="kpi-sub">4~6월 누적</div></div>
-    <div class="kpi accent"><div class="kpi-label">재고소진 합계</div><div class="kpi-val">${totalSo.toFixed(2)}억</div><div class="kpi-sub">4~6월 누적</div></div>
+    <div class="kpi accent"><div class="kpi-label">예상 매출 합계</div><div class="kpi-val">${totalSales.toFixed(2)}억</div><div class="kpi-sub">4~7월 누적</div></div>
+    <div class="kpi accent"><div class="kpi-label">재고소진 합계</div><div class="kpi-val">${totalSo.toFixed(2)}억</div><div class="kpi-sub">4~7월 누적</div></div>
     <div class="kpi"><div class="kpi-label">매출볼륨 합계</div><div class="kpi-val">${totalVol.toFixed(2)}억</div><div class="kpi-sub">입고 기준</div></div>
-    <div class="kpi"><div class="kpi-label">TG 합계</div><div class="kpi-val">${totalTg.toFixed(1)}억</div><div class="kpi-sub">4월 21억 / 5월 33.6억 / 6월 40.5억</div></div>
+    <div class="kpi"><div class="kpi-label">TG 합계</div><div class="kpi-val">${totalTg.toFixed(1)}억</div><div class="kpi-sub">4월 21 / 5월 33.6 / 6월 40.5 / 7월 25.4</div></div>
   </div>
   <div class="chart-area">
     <div class="chart-box">
@@ -365,14 +415,15 @@ function buildAll(){
       <div style="position:relative;height:200px"><canvas id="c-vol"></canvas></div>
     </div>
   </div>
-  <div class="section-title">카테고리별 예상 매출 3개월 비교 (단위: 억)</div>
+  <div class="section-title">카테고리별 예상 매출 4개월 비교 (단위: 억)</div>
   <div class="table-wrap"><table class="tbl">
     <thead><tr>
       <th>구분</th>
       <th class="num">4월 재고소진</th><th class="num">4월 예상매출</th>
       <th class="num">5월 재고소진</th><th class="num">5월 예상매출</th>
       <th class="num">6월 재고소진</th><th class="num">6월 예상매출</th>
-      <th class="num">합계 예상매출</th>
+      <th class="num">7월 재고소진</th><th class="num">7월 예상매출</th>
+      <th class="num">합계</th>
     </tr></thead><tbody>`;
 
   catKeys.forEach(ck=>{
@@ -383,14 +434,13 @@ function buildAll(){
              sl:c.items.reduce((s,r)=>s+(r.sl||0),0)/100};
     });
     const total=row.reduce((s,r)=>s+r.sl,0);
-    if(total===0&&row.every(r=>r.so===0)) return;
+    if(total<0.01&&row.every(r=>r.so<0.01)) return;
     h+=`<tr>
       <td>${badge(ck,catNames[ck])}</td>
       ${row.map(r=>`<td class="num">${r.so.toFixed(2)}</td><td class="num" style="font-weight:500">${r.sl.toFixed(2)}</td>`).join('')}
       <td class="num" style="font-weight:500">${total.toFixed(2)}</td>
     </tr>`;
   });
-
   h+=`<tr class="summary-row">
     <td>합계</td>
     ${ms.map(m=>`<td class="num">${D[m].stockout.toFixed(2)}</td><td class="num">${D[m].sales.toFixed(2)}</td>`).join('')}
@@ -398,7 +448,6 @@ function buildAll(){
   </tr></tbody></table></div>`;
 
   document.getElementById('pall').innerHTML=h;
-
   setTimeout(()=>{
     new Chart(document.getElementById('c-tg'),{type:'bar',
       data:{labels,datasets:[
@@ -407,8 +456,7 @@ function buildAll(){
         {label:'재고소진',data:soArr,backgroundColor:'rgba(239,159,39,0.7)',borderRadius:3},
       ]},
       options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-        scales:{x:{grid:{color:gc},ticks:{color:tc}},
-                y:{grid:{color:gc},ticks:{color:tc,callback:v=>v.toFixed(1)+'억'}}}}
+        scales:{x:{grid:{color:gc},ticks:{color:tc}},y:{grid:{color:gc},ticks:{color:tc,callback:v=>v.toFixed(1)+'억'}}}}
     });
     new Chart(document.getElementById('c-vol'),{type:'bar',
       data:{labels,datasets:[
@@ -416,27 +464,24 @@ function buildAll(){
         {label:'예상 매출액',data:salesArr,backgroundColor:'#639922',borderRadius:3},
       ]},
       options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},
-        scales:{x:{grid:{color:gc},ticks:{color:tc}},
-                y:{grid:{color:gc},ticks:{color:tc,callback:v=>v.toFixed(1)+'억'}}}}
+        scales:{x:{grid:{color:gc},ticks:{color:tc}},y:{grid:{color:gc},ticks:{color:tc,callback:v=>v.toFixed(1)+'억'}}}}
     });
   },80);
 }
 
 function switchTab(t){
   document.querySelectorAll('.tab').forEach(b=>{
-    const map={'4':'4월','5':'5월','6':'6월','all':'전체'};
+    const map={'4':'4월','5':'5월','6':'6월','7':'7월','all':'전체'};
     b.classList.toggle('active',b.textContent===map[t]);
   });
-  ['4','5','6','all'].forEach(k=>document.getElementById('p'+k).classList.toggle('active',k===t));
+  ['4','5','6','7','all'].forEach(k=>document.getElementById('p'+k).classList.toggle('active',k===t));
   if(t==='all'&&!document.getElementById('pall').innerHTML) buildAll();
 }
-
 function toggleCat(el){
   el.querySelector('.cat-toggle').classList.toggle('open');
   el.nextElementSibling.classList.toggle('open');
 }
-
-['4','5','6'].forEach(m=>{document.getElementById('p'+m).innerHTML=buildMonth(m);});
+['4','5','6','7'].forEach(m=>{document.getElementById('p'+m).innerHTML=buildMonth(m);});
 </script>
 </body>
 </html>
